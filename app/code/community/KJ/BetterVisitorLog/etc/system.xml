@@ -13,7 +13,7 @@
                     <comment>
                         <![CDATA[
                         <div style="margin-bottom: 10px; font-style: italic;">
-                            <img src="https://magemail.co/app/skin/images/logo.png" style="
+                            <a target="_blank" href="https://magemail.co/?utm_source=magento&utm_medium=banner&utm_campaign=better_visitor_logging"><img src="https://magemail.co/app/skin/images/logo.png" style="
                                     width: 72px;
                                     float: left;
                                     margin-top: -15px;
@@ -24,7 +24,8 @@
                                     padding-right: 2px;
                                     padding-top: 13px;
                             " />
-                            <span>Better Visitor Logging is brought to you by <a target="_blank" href="https://magemail.co">MageMail</a>  - the triggered email app for Magento.</span>
+                            </a>
+                            <span>Better Visitor Logging is brought to you by <a target="_blank" href="https://magemail.co/?utm_source=magento&utm_medium=banner&utm_campaign=better_visitor_logging">MageMail</a>  - the triggered email app for Magento.</span>
                         </div>
                         ]]>
                     </comment>

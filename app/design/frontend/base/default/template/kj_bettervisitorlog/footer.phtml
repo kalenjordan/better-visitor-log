@@ -96,9 +96,16 @@
         },
 
         detectEmail: function() {
-            var email = this.getQueryStringParameter('email');
-            if (email) {
-                return email;
+            if (this.getQueryStringParameter('email')) {
+                return this.getQueryStringParameter('email');
+            }
+
+            if (this.getQueryStringParameter('mc_eid')) {
+                return this.getQueryStringParameter('mc_eid');
+            }
+
+            if (this.getQueryStringParameter('mm_recipient')) {
+                return this.getQueryStringParameter('mm_recipient');
             }
 
             var loggedInCustomerEmail = '<?php echo Mage::helper('kj_bettervisitorlog')->getLoggedInCustomerEmail(); ?>';

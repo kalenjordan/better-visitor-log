@@ -5,6 +5,7 @@
             <version>1.0.0</version>
         </KJ_BetterVisitorLog>
     </modules>
+
     <global>
         <helpers>
             <kj_bettervisitorlog>
@@ -14,8 +15,41 @@
         <models>
             <kj_bettervisitorlog>
                 <class>KJ_BetterVisitorLog_Model</class>
+                <resourceModel>kj_bettervisitorlog_mysql4</resourceModel>
             </kj_bettervisitorlog>
+
+            <kj_bettervisitorlog_mysql4>
+                <class>KJ_BetterVisitorLog_Model_Mysql4</class>
+                <entities>
+                    <log>
+                        <table>kj_bettervisitorlog_log</table>
+                    </log>
+                </entities>
+            </kj_bettervisitorlog_mysql4>
         </models>
+
+        <resources>
+            <kj_bettervisitorlog_setup>
+                <setup>
+                    <module>KJ_BetterVisitorLog</module>
+                    <class>KJ_BetterVisitorLog_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </kj_bettervisitorlog_setup>
+            <kj_bettervisitorlog_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </kj_bettervisitorlog_write>
+            <kj_bettervisitorlog_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </kj_bettervisitorlog_read>
+        </resources>
+
         <blocks>
             <kj_bettervisitorlog>
                 <class>KJ_BetterVisitorLog_Block</class>

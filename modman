@@ -1,0 +1,4 @@
+app/etc/modules/KJ_BetterVisitorLog.xml
+app/code/community/KJ/BetterVisitorLog
+app/design/frontend/base/default/layout/kj_bettervisitorlog.xml
+app/design/frontend/base/default/template/kj_bettervisitorlog

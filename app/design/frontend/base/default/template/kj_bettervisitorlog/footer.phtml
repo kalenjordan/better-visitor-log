@@ -1,0 +1,115 @@
+<?php if (Mage::helper('kj_bettervisitorlog')->isMixpanelLoggingEnabled() && Mage::helper('kj_bettervisitorlog')->getMixpanelToken()): ?>
+    <!-- start Mixpanel -->
+    <script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+    for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+    mixpanel.init("<?php echo Mage::helper('kj_bettervisitorlog')->getMixpanelToken(); ?>");</script><!-- end Mixpanel -->
+<?php endif; ?>
+
+<!--[if gte IE 9]><!-->
+<script>
+    KJ_BetterVisitorLog = {
+        init: function() {
+            this.logVisitor();
+        },
+
+        isLocalLoggingEnabled: function() {
+            return <?php echo Mage::helper('kj_bettervisitorlog')->isLocalLoggingEnabled() ? "true" : "false"; ?>;
+        },
+
+        isMixpanelLoggingEnabled: function() {
+            return <?php echo Mage::helper('kj_bettervisitorlog')->isMixpanelLoggingEnabled() ? "true" : "false"; ?>;
+        },
+
+        getEmailFromCookie: function() {
+            return Mage.Cookies.get('kjbvl_email');
+        },
+
+        saveEmailToCookie: function(email) {
+            var expires = new Date();
+            this.consoleLog("Saving email to cookie: " + email);
+
+            expires.setYear(expires.getFullYear() + 1);
+            return Mage.Cookies.set('kjbvl_email', email, expires);
+        },
+
+        consoleLog: function(message) {
+            if (typeof(console) != 'undefined') {
+                console.log("[Better Visitor Log] " + message);
+            }
+        },
+
+        logVisitor: function() {
+            if (! this.isLocalLoggingEnabled() && ! this.isMixpanelLoggingEnabled()) {
+                this.consoleLog("No logging is enabled");
+                return;
+            }
+
+            var email = this.detectEmail();
+            if (email) {
+                this.saveEmailToCookie(email);
+            } else {
+                email = this.getEmailFromCookie();
+                if (email) {
+                    this.consoleLog("Using email from cookie: " + this.getEmailFromCookie());
+                }
+            }
+
+            if (! email) {
+                this.consoleLog("No email has been detected");
+                return;
+            }
+
+            if (this.isLocalLoggingEnabled()) {
+                this.logLocally();
+            }
+
+            if (this.isMixpanelLoggingEnabled()) {
+                this.logToMixpanel();
+            }
+        },
+
+        logLocally: function() {
+            this.consoleLog("Log locally");
+        },
+
+        logToMixpanel: function() {
+            var email = this.getEmailFromCookie();
+            this.consoleLog("Logging to mixpanel");
+
+            mixpanel.identify(email);
+            mixpanel.people.set({
+                "$email": email
+            });
+
+            mixpanel.track('page viewed', {
+                'page name' : document.title,
+                'url' : window.location.pathname
+            });
+        },
+
+        getQueryStringParameter: function(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        },
+
+        detectEmail: function() {
+            var email = this.getQueryStringParameter('email');
+            if (email) {
+                return email;
+            }
+
+            var loggedInCustomerEmail = '<?php echo Mage::helper('kj_bettervisitorlog')->getLoggedInCustomerEmail(); ?>';
+            if (loggedInCustomerEmail) {
+                return loggedInCustomerEmail;
+            }
+
+            return null;
+        }
+    };
+
+    KJ_BetterVisitorLog.init();
+</script>
+<!--[[endif]><!-->

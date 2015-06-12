@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <KJ_BetterVisitorLog>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends></depends>
+        </KJ_BetterVisitorLog>
+    </modules>
+</config>

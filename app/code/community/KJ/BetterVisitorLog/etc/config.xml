@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <KJ_BetterVisitorLog>
+            <version>1.0.0</version>
+        </KJ_BetterVisitorLog>
+    </modules>
+    <global>
+        <helpers>
+            <kj_bettervisitorlog>
+                <class>KJ_BetterVisitorLog_Helper</class>
+            </kj_bettervisitorlog>
+        </helpers>
+        <models>
+            <kj_bettervisitorlog>
+                <class>KJ_BetterVisitorLog_Model</class>
+            </kj_bettervisitorlog>
+        </models>
+        <blocks>
+            <kj_bettervisitorlog>
+                <class>KJ_BetterVisitorLog_Block</class>
+            </kj_bettervisitorlog>
+        </blocks>
+    </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <kj_bettervisitorlog>
+                    <file>kj_bettervisitorlog.xml</file>
+                </kj_bettervisitorlog>
+            </updates>
+        </layout>
+    </frontend>
+</config>

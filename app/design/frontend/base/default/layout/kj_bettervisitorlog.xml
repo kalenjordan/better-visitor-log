@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<layout version="1.6.1.0">
+    <default>
+        <block type="core/template" name="kj_bettervisitorlog_footer" template="kj_bettervisitorlog/footer.phtml"/>
+
+        <reference name="before_body_end">
+            <!-- ifconfig="kj_magemail/settings/enable_javascript" -->
+            <action method="append">
+                <name>kj_bettervisitorlog_footer</name>
+            </action>
+        </reference>
+    </default>
+</layout>

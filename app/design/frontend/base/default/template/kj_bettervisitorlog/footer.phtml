@@ -1,3 +1,5 @@
+<?php $productId = Mage::helper('kj_bettervisitorlog')->currentProductId(); ?>
+
 <?php if (Mage::helper('kj_bettervisitorlog')->isMixpanelLoggingEnabled() && Mage::helper('kj_bettervisitorlog')->getMixpanelToken()): ?>
     <!-- start Mixpanel -->
     <script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
@@ -9,6 +11,7 @@
 <script>
     KJ_BetterVisitorLog = {
         init: function() {
+            this.observeEmailBlur();
             this.logVisitor();
         },
 
@@ -36,6 +39,39 @@
             if (typeof(console) != 'undefined') {
                 console.log("[Better Visitor Log] " + message);
             }
+        },
+
+        observeEmailBlur: function() {
+            var self = this;
+
+            Prototype.Selector.select('.validate-email, #login-email').each(function(element) {
+                element.stopObserving('blur');
+                Event.observe(element, 'blur', function(el) {
+                    self._captureEmail(el);
+                });
+            });
+        },
+
+        _captureEmail: function(element) {
+            var email = (typeof element == 'string') ? element : element.target.value;
+            if (email) {
+                if (this.validateEmail(email)) {
+                    this.consoleLog("Email entered and saved to cookie: " + email);
+                    this.saveEmailToCookie(email);
+                } else {
+                    this.consoleLog("Email doesn't look valid: " + email);
+                }
+            }
+        },
+
+        /**
+         * Going with a cheapy email validation for now.  Found a nifty one but it
+         * didn't seem to properly support gmail style + emails:
+         *
+         *     http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
+         */
+        validateEmail: function(email) {
+            return (email.indexOf('@') != -1 && email.indexOf('.') != -1);
         },
 
         logVisitor: function() {
@@ -69,7 +105,53 @@
         },
 
         logLocally: function() {
-            this.consoleLog("Log locally");
+            var self = this;
+
+            var email = this.getEmailFromCookie();
+            var productId = <?php echo ($productId === null) ? "null" : $productId; ?>;
+            var url = '<?php echo Mage::helper('kj_bettervisitorlog')->getAjaxBaseUrl(); ?>/log/view/';
+
+            this.consoleLog("Logging locally");
+            this.consoleLog("Sending ajax request for email: " + email);
+            new Ajax.Request(url, {
+                method:     'post',
+                parameters: {
+                    email:      email,
+                    product_id: productId
+                },
+
+                onCreate:   self.fixAjaxRequestHeader,
+                onSuccess: function(transport) {
+                    var data = self._transportToJson(transport);
+                    if (typeof(data.cart) != 'undefined' && typeof(data.cart.length) != 'undefined' && data.cart.length && data.email == null) {
+                        self.showCartExitModal(data);
+                    } else {
+                        self.showNewsletterExitModal(data);
+                    }
+
+                    self.bindExitModalForm(data);
+                },
+
+                onFailure: function() {
+                    self._log('[MageMail] Error: Something went wrong...');
+                }
+            });
+        },
+
+        /**
+         * The prototype ajax request sometimes does weird things without this.
+         */
+        fixAjaxRequestHeader: function(response)
+        {
+            var t = response.transport;
+            t.setRequestHeader = t.setRequestHeader.wrap(function(original, k, v) {
+                if (/^(accept|accept-language|content-language)$/i.test(k))
+                    return original(k, v);
+                if (/^content-type$/i.test(k) &&
+                    /^(application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)(;.+)?$/i.test(v))
+                    return original(k, v);
+                return this;
+            });
         },
 
         logToMixpanel: function() {
@@ -82,8 +164,9 @@
             });
 
             mixpanel.track('page viewed', {
-                'page name' : document.title,
-                'url' : window.location.pathname
+                "page name" : document.title,
+                "product_id": <?php echo ($productId === null) ? "null" : $productId; ?>,
+                "url" : window.location.pathname
             });
         },
 

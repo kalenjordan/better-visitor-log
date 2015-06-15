@@ -36,6 +36,11 @@
         },
 
         consoleLog: function(message) {
+            var enabled = <?php echo Mage::helper('kj_bettervisitorlog')->isConsoleLoggingEnabled() ? "true" : "false"; ?>;
+            if (! enabled) {
+                return;
+            }
+
             if (typeof(console) != 'undefined') {
                 console.log("[Better Visitor Log] " + message);
             }
@@ -113,7 +118,7 @@
 
             this.consoleLog("Logging locally");
             this.consoleLog("Sending ajax request for email: " + email);
-            
+
             new Ajax.Request(url, {
                 method:     'post',
                 parameters: {

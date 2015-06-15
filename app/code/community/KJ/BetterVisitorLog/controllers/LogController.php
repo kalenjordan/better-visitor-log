@@ -27,11 +27,13 @@ class KJ_BetterVisitorLog_LogController extends Mage_Core_Controller_Front_Actio
             return $this;
         }
 
+        $productId = ($this->getRequest()->getParam('product_id') > 0) ? $this->getRequest()->getParam('product_id') : null;
+
         $log = Mage::getModel('kj_bettervisitorlog/log');
         $log->setEmail($this->getRequest()->getParam('email'))
             ->setIpAddress(Mage::helper('core/http')->getRemoteAddr())
             ->setXForwardedFor($this->getRequest()->getServer('HTTP_X_FORWARDED_FOR'))
-            ->setProductId($this->getRequest()->getParam('product_id'))
+            ->setProductId($productId)
             ->save();
 
         $response = array(

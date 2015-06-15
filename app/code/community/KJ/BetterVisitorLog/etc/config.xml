@@ -75,4 +75,12 @@
             </kj_bettervisitorlog>
         </routers>
     </frontend>
+
+    <default>
+        <system>
+            <kj_bettervisitorlog>
+                <enable_console_logging>1</enable_console_logging>
+            </kj_bettervisitorlog>
+        </system>
+    </default>
 </config>

@@ -30,6 +30,11 @@ class KJ_BetterVisitorLog_Helper_Data extends Mage_Core_Helper_Data
         return Mage::getStoreConfig('system/kj_bettervisitorlog/enable_mixpanel', Mage::app()->getStore());
     }
 
+    public function isConsoleLoggingEnabled()
+    {
+        return Mage::getStoreConfig('system/kj_bettervisitorlog/enable_console_logging', Mage::app()->getStore());
+    }
+
     public function getMixpanelToken()
     {
         return Mage::getStoreConfig('system/kj_bettervisitorlog/mixpanel_token', Mage::app()->getStore());

@@ -68,6 +68,20 @@
                                 Account > Projects > Token.
                             </comment>
                         </mixpanel_token>
+                        <enable_console_logging translate="label">
+                            <label>Log to Javascript Console</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>
+                                This will log various things to the javascript console
+                                like when an event is logged locally or to mixpanel.  This
+                                is useful when first installing / testing the extension.
+                            </comment>
+                        </enable_console_logging>
                     </fields>
                 </kj_bettervisitorlog>
             </groups>

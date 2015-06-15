@@ -1,8 +1,6 @@
 Better Visitor Log
 ==================
 
-Better visitor logging for your Magento store.
+A client-side replacement for Magento visitor log
 
-### Installation
-
-Go to https://magemail.co/better-visitor-log/
+Go to https://magemail.co/better-visitor-log-for-magento/

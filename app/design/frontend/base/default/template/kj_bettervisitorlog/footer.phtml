@@ -113,6 +113,7 @@
 
             this.consoleLog("Logging locally");
             this.consoleLog("Sending ajax request for email: " + email);
+            
             new Ajax.Request(url, {
                 method:     'post',
                 parameters: {
@@ -123,17 +124,15 @@
                 onCreate:   self.fixAjaxRequestHeader,
                 onSuccess: function(transport) {
                     var data = self._transportToJson(transport);
-                    if (typeof(data.cart) != 'undefined' && typeof(data.cart.length) != 'undefined' && data.cart.length && data.email == null) {
-                        self.showCartExitModal(data);
+                    if (data.success) {
+                        self.consoleLog('Local logging successful');
                     } else {
-                        self.showNewsletterExitModal(data);
+                        self.consoleLog('There was a problem logging locally.  Check the ajax response for more detail.');
                     }
-
-                    self.bindExitModalForm(data);
                 },
 
                 onFailure: function() {
-                    self._log('[MageMail] Error: Something went wrong...');
+                    self.consoleLog('There was a problem logging locally.  Check the ajax response for more detail.');
                 }
             });
         },
@@ -152,6 +151,24 @@
                     return original(k, v);
                 return this;
             });
+        },
+
+        /**
+         * Sometimes the data object returned from the prototype ajax request is
+         * a little cray.  Prototype - gotta love it.
+         */
+        _transportToJson: function(transport)
+        {
+            if (transport.responseJSON) {
+                return transport.responseJSON;
+            }
+
+            if (transport.responseText) {
+                data = JSON.parse(transport.responseText);
+                return data;
+            }
+
+            return {};
         },
 
         logToMixpanel: function() {

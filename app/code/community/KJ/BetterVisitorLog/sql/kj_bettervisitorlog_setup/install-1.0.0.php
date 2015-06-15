@@ -16,25 +16,43 @@ $table->addColumn(
 );
 
 $table->addColumn(
-    'created_at',
-    Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+    'email',
+    Varien_Db_Ddl_Table::TYPE_VARCHAR,
+    255
+);
+
+$table->addColumn(
+    'product_id',
+    Varien_Db_Ddl_Table::TYPE_VARCHAR,
     null
 );
 
-/*
- * Finish creating fields:
-ip_address
-x_forwarded_for
-created_at
-product_id
-user_agent
-email
- */
+$table->addColumn(
+    'ip_address',
+    Varien_Db_Ddl_Table::TYPE_VARCHAR,
+    null
+);
+
+$table->addColumn(
+    'x_forwarded_for',
+    Varien_Db_Ddl_Table::TYPE_VARCHAR,
+    null
+);
+
+$table->addColumn(
+    'created_at',
+    Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+    null,
+    array(
+        'nullable'  => false,
+        'default'   => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
+    )
+);
 
 try {
     $this->getConnection()->createTable($table);
 } catch (Exception $e) {
-    Mage::log("Test");
+    Mage::logException($e);
 }
 
 $this->endSetup();

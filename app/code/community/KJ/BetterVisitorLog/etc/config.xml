@@ -65,5 +65,14 @@
                 </kj_bettervisitorlog>
             </updates>
         </layout>
+        <routers>
+            <kj_bettervisitorlog>
+                <use>standard</use>
+                <args>
+                    <module>KJ_BetterVisitorLog</module>
+                    <frontName>kjbvl</frontName>
+                </args>
+            </kj_bettervisitorlog>
+        </routers>
     </frontend>
 </config>

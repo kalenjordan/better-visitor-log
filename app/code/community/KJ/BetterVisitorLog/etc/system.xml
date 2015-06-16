@@ -12,20 +12,23 @@
                     <expanded>1</expanded>
                     <comment>
                         <![CDATA[
-                        <div style="margin-bottom: 10px; font-style: italic;">
-                            <a target="_blank" href="https://magemail.co/?utm_source=magento&utm_medium=banner&utm_campaign=better_visitor_logging"><img src="https://magemail.co/app/skin/images/logo.png" style="
-                                    width: 72px;
+                        <div style="margin-top: -16px; background-color: rgb(231, 239, 239);margin-left: -20px;padding: 9px 3px; padding-right: 11px; margin-right: -20px;">
+                            <a target="_blank" href="https://magemail.co/?utm_source=magento&amp;utm_medium=banner&amp;utm_campaign=better_visitor_logging">
+                                <img src="https://magemail.co/app/skin/images/logo.png" style="
+                                    width: 73px;
                                     float: left;
                                     margin-top: -15px;
                                     margin-left: -11px;
                                     padding-right: 7px;
-
                                     float: right;
-                                    padding-right: 2px;
-                                    padding-top: 13px;
-                            " />
+                                    padding-right: 3px;
+                                    padding-top: 14px;
+                                ">
                             </a>
-                            <span>Better Visitor Logging is brought to you by <a target="_blank" href="https://magemail.co/?utm_source=magento&utm_medium=banner&utm_campaign=better_visitor_logging">MageMail</a>  - the triggered email app for Magento.</span>
+                            <a target="_blank" href="https://magemail.co/?utm_source=magento&amp;utm_medium=banner&amp;utm_campaign=better_visitor_logging"
+                                style="color: #333;text-decoration: none;">
+                                    Better Visitor Logging is brought to you by <i>MageMail  - the triggered email app for Magento</i>.
+                            </a>
                         </div>
                         ]]>
                     </comment>

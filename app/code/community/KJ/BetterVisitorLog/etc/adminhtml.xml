@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <menu>
+        <customer module="kj_bettervisitorlog" translate="title'">
+            <children>
+                <kj_bettervisitorlog>
+                    <title>Better Visitor Log</title>
+                    <sort_order>999</sort_order>
+                    <action>adminhtml/system_config/edit/section/system</action>
+                </kj_bettervisitorlog>
+            </children>
+        </customer>
+    </menu>
+</config>

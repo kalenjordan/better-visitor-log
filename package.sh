@@ -17,7 +17,7 @@ rm -rf ~/Desktop/BetterVisitorLog/
 cd $CWD
 mv ~/Desktop/BetterVisitorLog.zip .
 
-scp BetterVisitorLog.zip serverpilot@magemail.co:~/apps/magemail/public/
+scp BetterVisitorLog.zip serverpilot@magemail.co:~/apps/magemail/public/app/media/uploads/
 rm BetterVisitorLog.zip
 
 echo "Deployed to https://magemail.co/BetterVisitorLog.zip"

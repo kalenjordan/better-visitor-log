@@ -6,6 +6,7 @@ cp -R * ~/Desktop/BetterVisitorLog/
 
 # Files that we want to exclude from the package
 rm ~/Desktop/BetterVisitorLog/package.sh ~/Desktop/BetterVisitorLog/modman
+mv ~/Desktop/BetterVisitorLog/README.md ~/Desktop/BetterVisitorLog/KJ-BETTER-VISITOR-LOG-README.md
 echo "$COMMIT" >> ~/Desktop/BetterVisitorLog/app/code/community/KJ/BetterVisitorLog/etc/version.txt
 
 cd ~/Desktop/BetterVisitorLog/

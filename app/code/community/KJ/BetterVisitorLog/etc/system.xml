@@ -4,7 +4,7 @@
         <system>
             <groups>
                 <kj_bettervisitorlog>
-                    <label>Better Visitor Logging</label>
+                    <label>Better Visitor Log</label>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>

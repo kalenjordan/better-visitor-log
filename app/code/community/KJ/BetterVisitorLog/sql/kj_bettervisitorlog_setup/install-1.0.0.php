@@ -18,7 +18,7 @@ $table->addColumn(
 $table->addColumn(
     'email',
     Varien_Db_Ddl_Table::TYPE_VARCHAR,
-    255
+    254
 );
 
 $table->addColumn(
@@ -30,13 +30,13 @@ $table->addColumn(
 $table->addColumn(
     'ip_address',
     Varien_Db_Ddl_Table::TYPE_VARCHAR,
-    null
+    46
 );
 
 $table->addColumn(
     'x_forwarded_for',
     Varien_Db_Ddl_Table::TYPE_VARCHAR,
-    null
+    46
 );
 
 $table->addColumn(
